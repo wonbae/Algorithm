@@ -1,2 +1,2 @@
 # Algorithm
-BOJ, SWEA, Programmers, Cracking the Algorithm
+BOJ, SWEA, Programmers, 🔥Cracking the Algorithm🔥
