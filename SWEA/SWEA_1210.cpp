@@ -6,9 +6,9 @@ int main()
     int T = 0;
     int data[101][101] = {0,};
 
-    for(int tc = 0; tc < 10; tc++){
+    for(int tc = 1; tc <= 10; tc++){
         cin>>T;
-        int x,y;
+        int x = 0, y = 0;
         
         //초기화
         memset(data,0,sizeof(data));
@@ -28,7 +28,7 @@ int main()
         }
 
         //탐색
-        while(x >= 0)
+        while(x > 0)
         {
             x--;
             //왼쪽
