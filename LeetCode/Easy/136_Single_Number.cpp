@@ -2,9 +2,16 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) {
         //#1. Bit operation
+        // int res = 0;
+        // for(int i = 0; i < nums.size(); i++){
+        //     res ^= nums.at(i);
+        // }
+        // return res;
+        
+        //#1-1. Bit operation
         int res = 0;
-        for(int i = 0; i < nums.size(); i++){
-            res ^= nums.at(i);
+        for(int i : nums){
+            res ^= i;
         }
         return res;
         
