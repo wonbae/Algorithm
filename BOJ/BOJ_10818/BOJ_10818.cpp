@@ -20,6 +20,5 @@ int main(){
         // }
     }
     cout<<min<<" "<<max<<endl;
-
     return 0;
 }
