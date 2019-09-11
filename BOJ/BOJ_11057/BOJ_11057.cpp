@@ -17,7 +17,12 @@ int main(void){
             d[i][j] %= mod;
         }
     }
-    for (int i = 0; i < 10; i++) ans += d[n][i];
+    // for(int i = 0; i < 10; i ++){
+    //     for(int j = 0; j < 10; j++){
+    //         cout<<"i : "<<i<<", j : "<<j<<"->"<<d[i][j]<<endl;
+    //     }
+    // }
+    for (int i = 0; i < 10; i++) ans += d[n][i]; 
     cout << ans % mod << "\n";
     return 0;
 }
