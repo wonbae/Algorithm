@@ -17,6 +17,15 @@ public:
             }
         }
         return arr;
-        
+
+	// More Effective
+        // int count = 0;
+        // for(int i = 0; i < A.size();i++){
+        //     if(A[i]%2 == 0){
+        //         swap(A[i],A[count]);
+        //         count++;
+        //     }
+        // }
     }
+	
 };
