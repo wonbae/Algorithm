@@ -1,5 +1,5 @@
-# Algorithm
-🔥Cracking the Algorithm🔥
+# PS(Problem Solving)
+🔥Cracking the Algorithm(Problem Solving)🔥
 
 - BOJ(BaekJoon Online Judge)
 - SWEA(SW Expert Academy)
