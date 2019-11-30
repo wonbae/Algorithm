@@ -5,7 +5,6 @@ int i, c;
 char s[111];
 
 int main(){
-    // ios_base::sync_with_stdio(false); cin.tie(NULL);
 
     // string dict[9] = {"c=","c-","dz=","d-","lj","nj","s=","z="};
 
