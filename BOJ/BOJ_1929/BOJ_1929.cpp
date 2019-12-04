@@ -82,14 +82,19 @@ int main() {
     cin >> M >> N;
     vector<bool> isPrime(N + 1, true); 
 
-    isPrime[0] = false;
+    isPrime[0] = false; //소수가 아니면 false 소수면 true
     isPrime[1] = false;
 
-    for (int i = 2; i*i <= N; i++) {
+    for (int i = 2; i * i <= N; i++) {
         if (isPrime[i]) {
-            // 소수의 J배수들은 모두 소수가 아님
-            for (int j = 2 * i; j <= N; j += i)
-                isPrime[j] = false;
+            if(pow(i,2) > 1000001){
+                break;
+            }else{
+                // 소수의 J배수들은 모두 소수가 아님
+                for (int j = 2 * i; j <= N; j += i){
+                    isPrime[j] = false;
+                }
+            }
         }
     }
  
