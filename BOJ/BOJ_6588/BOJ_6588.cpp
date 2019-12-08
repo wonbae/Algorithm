@@ -30,7 +30,8 @@ int main(){
 
         int rest = 0;
 
-        // for(int i = 3; i < n; i++){
+        // for(int i = 3; i < n; i++){}
+
         for(int i = 3; (i * 2) <= n; i += 2){
             if(isPrime[i]){
                 if(i == n){
