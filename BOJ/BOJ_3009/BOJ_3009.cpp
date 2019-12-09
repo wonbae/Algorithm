@@ -1,34 +1,36 @@
-#include<bits/stdc++.h>
-using namespace std;
+// #include<iostream>
+// #include<vector>
 
-int main(){
+// using namespace std;
+// //C++11 version
 
-    vector<bool> dot(1000 + 1, true);
-    vector<int> x;
-    vector<int> y;
+// int main(){
 
-    int a,b;
+//     int x, y;
+//     vector<vector<int> > res(3, vector<int> (2,0));
+//     vector<int> ans = {0,0};
 
+//     for(int i = 0; i < 3; i++){
+//         cin>>x>>y;
+
+//         res[i][0] = x;
+//         res[i][1] = y;
+        
+//     }
     
-    for(int i = 0; i <3; i++){
-        cin>>a>>b;
 
-        for(int j = 0; j < x.size(); j++){
-            if(x[j] == a){
-                x.pop_back();
-            }else{
-                x.push_back(a);
-            }
-        }
-    }
+//     for(int i = 0; i < 3; i++){
+//         ans[0] ^= res[i][0];
+//         ans[1] ^= res[i][1];
+//     }
 
-    for(int i = 1000; i > 0; i--){
-        if(!dot[i]){
-            cout<<i<<" ";
-        }
-    }cout<<"\n";
+//     return 0;
+// }
 
-
-
-    return 0;
+#include<cstdio>
+int x,y,n,m;
+int main() {
+	while(~scanf("%d %d", &x, &y))n^=x,m^=y;
+	printf("%d %d", n, m);
+	return 0;
 }

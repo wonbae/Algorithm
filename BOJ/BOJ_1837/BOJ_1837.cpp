@@ -1,49 +1,70 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define limit 1e+18
+vector<int> primes;
+string p = "";
+
+void eratos(int max){
+    vector<bool> isPrime(max + 1, true);
+    
+    for(int i = 2; i < max; i++){
+        if(isPrime[i]){
+            primes.push_back(i);
+            for(int j = i*2; j < max; j += i){
+                if(isPrime[j]){
+                    isPrime[j] = false;
+                }
+            }
+        }
+    }
+
+    // cout<<"Eratos : ";
+    // for(int i = 0; i < primes.size(); i++){
+    //     cout<<primes[i]<<" ";
+    // }cout<<endl;
+
+}
+
+bool DevidePrime(int single_prime){
+    int tmp = 0;
+    bool flag = false;
+    int len = p.length();
+
+    for(int i = 0; i < len; i++){
+        tmp = (tmp * 10 + (p[i] - '0')) % single_prime;
+    }
+
+    if(tmp == 0){
+        flag = true;
+    }else{
+        flag = false;
+    }
+
+    return flag;
+
+}
 
 int main(){
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+
     int k;
-    long long n;
+    int res = 0;
 
-    cin>>n>>k;
+    cin>>p>>k;
 
-    if(n < limit){
-        vector<bool> isPrime(n+1, true);
-        vector<int> prime;
-        long long max = sqrt(n);
+    eratos(k);
 
-        isPrime[0] = false;
-        isPrime[1] = false;
+    for(int i = 0; i < primes.size(); i++){
+        // cout<<primes[i]<<" "<<"\n";
+        if(DevidePrime(primes[i])){
+            res = primes[i];
+            cout<<"BAD"<<" "<<res<<"\n";
+            return 0;
+        }    
+    }   
 
-        for(int i = 2; i <= max; i++){
-            if(isPrime[i]){
-                prime.push_back(i);
-                for(int j = i*2; j <= n; j += i){
-                    if(isPrime[j]){
-                        isPrime[j] = false;
-                    }
-                }
-            }
-        }
-
-        for(int i = 0; i < prime.size(); i++){
-            if(n % prime[i] == 0){
-                long long tmp = n / prime[i];
-                if(isPrime[tmp] && tmp > k && prime[i] > k){
-                    cout<<"GOOD"<<"\n";
-                }else if(tmp <= k || prime[i] <= k ){
-                    cout<<"BAD"<<" "<<min(int(tmp),prime[i])<<"\n";
-                }
-            }
-        }
-    }else{
-        cout<<"GOOD"<<"\n";
-    }
+    cout<<"GOOD"<<"\n";
     
-
-
 
     return 0;
 }
