@@ -1,47 +1,91 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-#define X first
-#define Y second
-#define PAIR pair<int, int>
+#define MAX 50
 
-int main(void) {
+int M,N,K;  //M 가로, N 세로
+int Map[MAX][MAX] = {0,};
+int Visit[MAX][MAX] = {0,};
+
+void PRINT(){
+    cout<<"\n==== MAP =====\n";
+    for(int y = 0; y < N; y++){
+        for(int x = 0; x < M; x++){
+            cout<<Map[y][x];
+        }cout<<"\n";
+    }
+}
+
+void PRINT_VISIT(){
+    cout<<"\n==== VISIT =====\n";
+    for(int y = 0; y < N; y++){
+        for(int x = 0; x < M; x++){
+            cout<<Visit[y][x];
+        }cout<<"\n";
+    }
+}
+int main(){
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+
     int T;
-    scanf("%d", &T);
-    int dx[4] = { 1, -1, 0, 0 };
-    int dy[4] = { 0 ,0 ,1 ,-1 };
-    while (T--) {
-        int M, N, K;
-        scanf("%d %d %d", &M, &N, &K);
-        int map[50][50] = { 0, }; // 0 : 배추 없음 1 : 배추 있음, 아직 방문 안함 2 : 배추 있음, 방문함
-        for (int i = 0; i < K; i++) {
-            int x, y;
-            scanf("%d %d", &x, &y);
-            map[x][y] = 1;
+    queue<pair<int, int> > q;
+    const int dx[] = {0, 1, 0, -1};
+    const int dy[] = {1, 0, -1, 0};
+
+    cin>>T;
+
+    while(T--){
+        cin>>M>>N>>K;
+
+        memset(Map, 0, sizeof(Map));
+        memset(Visit, 0, sizeof(Visit));
+
+        int X,Y;
+        for(int i = 0; i < K; i++){
+            cin>>X>>Y;
+            Map[Y][X] = 1;
         }
-        int num = 0;
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                if (map[i][j] == 1) { // 아직 방문하지 않았고 배추가 있는 곳을 찾았다면
-                    num++; // 벌레를 한 마리 둠
-                    map[i][j] = 2;
-                    queue<PAIR> Q;
-                    Q.push(make_pair(i, j));
-                    while (!Q.empty()) {
-                        PAIR t = Q.front();
-                        Q.pop();
-                        for (int dir = 0; dir < 4; dir++) {
-                            if (t.X + dx[dir] < 0 || t.X + dx[dir] >= M || t.Y + dy[dir] < 0 || t.Y + dy[dir] >= N)
-                                continue;
-                            if (map[t.X + dx[dir]][t.Y + dy[dir]] == 1) {
-                                Q.push(make_pair(t.X + dx[dir], t.Y + dy[dir]));
-                                map[t.X + dx[dir]][t.Y + dy[dir]] = 2;
+
+        // PRINT();
+
+        int cnt = 0;
+
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < M; j++){
+                if(Visit[i][j] == 0 && Map[i][j] == 1){
+                    q.push(make_pair(i,j));
+                    Visit[i][j] = 1;
+                    ++cnt;
+
+                    while(!q.empty()){
+                        int x = q.front().first;
+                        int y = q.front().second;
+                        q.pop();
+
+                        for(int idx = 0; idx < 4; idx++){
+                            int nx = x + dx[idx];
+                            int ny = y + dy[idx];
+
+                            if(nx < 0 || nx >= N || ny < 0 || ny >= M || Visit[nx][ny] == 1) continue;
+                            
+                            if(Map[nx][ny] == 1 && Visit[nx][ny] == 0){
+                                q.push(make_pair(nx,ny));
+                                Visit[nx][ny] = 1;
                             }
+                            
                         }
+
                     }
                 }
             }
         }
-        printf("%d\n", num);
+
+        // PRINT_VISIT();
+
+        cout<<cnt<<"\n";
+
     }
+
+
+
+    return 0;
 }
