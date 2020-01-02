@@ -1,4 +1,4 @@
-// 어렵넴..
+// 어렵넴.. 순열조합 공부하고 다시풀자
 #include<bits/stdc++.h>
 using namespace std;
 
