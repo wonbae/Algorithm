@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// not yet
+
 #define MAX 100
 
 int tomato[MAX][MAX][MAX] = {0,};
@@ -38,7 +40,7 @@ int main(){
             for(int x = 0; x < M; x++){
                 if((tomato[y][x][z] = 1) && (visit[y][x][z] = false)){
                     q.push(make_pair(y,x));
-                    
+
                 }
             }
         }
