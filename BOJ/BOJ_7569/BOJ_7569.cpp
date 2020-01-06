@@ -1,13 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// not yet
-
 #define MAX 100
 
 int tomato[MAX][MAX][MAX] = {0,};
 bool visit[MAX][MAX][MAX] = {false,};
 int M,N,H;
+
+typedef struct TOMA{
+    int y,x,z;
+
+    TOMA(int y, int x, int z) : y(y), x(x), z(z)
+    {
+
+    }
+
+}TOMA;
 
 void PRINT(){
     cout<<"\n====== Print Tomato =======\n";
@@ -22,6 +30,7 @@ void PRINT(){
 
 int main(){    
     queue<pair<int, int> > q;
+    queue<TOMA> Q;
     
     cin>>M>>N>>H;
 
@@ -38,13 +47,23 @@ int main(){
     for(int z = 0; z < H; z++){
         for(int y = 0; y < N; y++){
             for(int x = 0; x < M; x++){
-                if((tomato[y][x][z] = 1) && (visit[y][x][z] = false)){
-                    q.push(make_pair(y,x));
+                if(tomato[y][x][z] == 1){
+                    Q.push(TOMA(y,x,z));
+                
+                    while(!Q.empty()){
+                        int y = Q.front().y;
+                        int x = Q.front().x;
+                        int z = Q.front().z;
+                        Q.pop();
 
+                        cout<<"y : "<<y<<", x : "<<x<<", z : "<<z<<"\n";
+
+                    }
                 }
             }
         }
     }
+
 
     return 0;
 }
