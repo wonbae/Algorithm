@@ -1,21 +1,10 @@
-// // LCS(Longest Common Subsequence, 최장 공통 부분 수열)
-
-// #include <iostream>
-// using namespace std;
-
-// int main(){
-
-
-
-//     return 0;
-// }
-
+// // LCS(Longest Common Subsequence, 최장 공통 부분 수열)미완성
 
 #include <iostream>
 #include <string>
 #include <algorithm>
 using namespace std;
- 
+
 int main(){
     string str[1000];
     cin >> str[0];
