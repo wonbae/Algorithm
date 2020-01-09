@@ -42,8 +42,9 @@ int BFS(){
                         q.push(make_pair(nx,ny));
                         visit[nx][ny] = 1;
                         check[nx][ny] = check[x][y] + 1;
-                        hour = max(check[nx][ny], hour);
+                        hour = max(check[nx][ny], hour);    
                     }
+                    
                 }
                 
             }
