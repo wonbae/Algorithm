@@ -20,12 +20,12 @@ void BFS(){
         int y = q.front().second;
         q.pop();
 
-        cout<<"\n====== Print =======\n";
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                cout<<chess_map[i][j]<<" ";
-            }cout<<endl;
-        }
+        // cout<<"\n====== Print =======\n";
+        // for(int i = 0; i < N; i++){
+        //     for(int j = 0; j < N; j++){
+        //         cout<<chess_map[i][j]<<" ";
+        //     }cout<<endl;
+        // }
         for(int idx = 0; idx < 8; idx++){
             int nx = x + dx[idx];
             int ny = y + dy[idx];
