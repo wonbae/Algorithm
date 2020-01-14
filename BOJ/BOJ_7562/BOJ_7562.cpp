@@ -2,15 +2,47 @@
 using namespace std;
 
     int T,N;
-    int x,y;
-    int ex,ey;
+    int st_x, st_y;
+    int end_x, end_y;
     vector<vector<int> > chess_map;
    
 void BFS(){ 
 
     int dy[] = { -2, -1, 1, 2, 2, 1, -1, -2 };
     int dx[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
-    
+    queue<pair<int, int> > q;
+
+    q.push(make_pair(st_x, st_y)); 
+    chess_map[st_x][st_y] = 0;
+
+    while(!q.empty()){
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+
+        cout<<"\n====== Print =======\n";
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                cout<<chess_map[i][j]<<" ";
+            }cout<<endl;
+        }
+        for(int idx = 0; idx < 8; idx++){
+            int nx = x + dx[idx];
+            int ny = y + dy[idx];
+
+            if(nx >= 0 && nx < N && ny >= 0 && ny < N){
+                if(chess_map[nx][ny] == -1){
+                    q.push(make_pair(nx,ny));
+                    chess_map[nx][ny] = chess_map[x][y] + 1;
+
+                    if(nx == end_x && ny == end_y){
+                        return ;
+                    }
+                }
+                
+            }
+        }
+    }
    
 
 }
@@ -18,61 +50,25 @@ void BFS(){
 
 int main(){
 
-    
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+    cin>>T;
+
+    while(T--){
+        cin>>N;
+        cin>>st_x>>st_y>>end_x>>end_y;
+
+        chess_map = vector<vector<int> > (N, vector<int>  (N, -1));
+
+        BFS();
+
+        cout<<chess_map[end_x][end_y]<<"\n";
+
+
+    }
 
 
     return 0;
 }
 
   
-// #include <iostream>
-// #include <vector>
-// #include <queue>
-// using namespace std;
-
-// // 8방향 이동
-// int dy[] = { -2, -1, 1, 2, 2, 1, -1, -2 };
-// int dx[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
-// int n;
-// vector<vector<int> > map;
-
-// void bfs(int y, int x, int desy, int desx) {
-// 	queue<pair<int, int> > q;
-// 	q.push(make_pair(y, x));
-// 	map[y][x] = 0;
-
-// 	while (!q.empty()) {
-// 		y = q.front().first;
-// 		x = q.front().second;
-// 		q.pop();
-
-// 		for (int i = 0; i < 8; i++) {
-// 			int ny = y + dy[i];
-// 			int nx = x + dx[i];
-// 			if (ny >= 0 && nx >= 0 && ny < n && nx < n) {
-// 				// map이 -1이면 아직 방문 안함, 현재노드위치의 값에 1더해주고 큐에 넣음
-// 				if (map[ny][nx] == -1) {
-// 					q.push(make_pair(ny, nx));
-// 					map[ny][nx] = map[y][x] + 1;
-// 					// ny,nx값이 이동하려고하는 칸의 값과 같으면 
-// 					// 최단거리 값을 찾았기 때문에 더이상 진행안하고 리턴
-// 					if (ny == desy && nx == desx) return;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-// int main(void) {
-// 	int T; cin >> T;
-// 	for (int t = 0; t < T; t++) {
-// 		int ny, nx, desx, desy; // 시작점, 종착점
-// 		cin >> n;
-// 		cin >> ny >> nx >> desy >> desx;
-		
-// 		// map을 -1로 초기화
-// 		map = vector<vector<int> >(n, vector<int> (n, -1));		
-// 		bfs(ny, nx, desy, desx);
-// 		printf("%d\n", map[desy][desx]);
-// 	}
-// }
