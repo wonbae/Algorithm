@@ -7,43 +7,26 @@ using namespace std;
 
 
 int mycount[10000];
-
 int N;
 
-int main()
-
-{
-
-
+int main(){
 
 	scanf("%d", &N);
 
 	for (int i = 0; i < N; ++i)
-
 	{
-
 		int num;
 
 		scanf("%d", &num);
 
-
-
 		mycount[num-1]++;
-
 	}
 
 	for (int i = 0; i < 10000; ++i) {
-
-
-
 		if (mycount[i] != 0)
-
 		{
-
 			for (int j = 0; j < mycount[i]; ++j)
-
 			{
-
 				printf("%d \n", i + 1);
 
 			}
