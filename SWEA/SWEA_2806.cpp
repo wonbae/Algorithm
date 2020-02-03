@@ -1,20 +1,14 @@
 #include<iostream>
-#include<queue>
-
 using namespace std;
 
 #define SIZE 10
 
-vector<vector<bool> > board;
+int board[SIZE];
 int N;
 int answer = 0;
 
-bool isPossible(){
-
-
-    return true;
-}
 int NQueen(int pos){
+    bool isPossible;
 
     if(pos == N){
         answer++;
@@ -22,14 +16,18 @@ int NQueen(int pos){
     }
 
     for(int i = 0; i < N; i++){
-        if(isPossible()){
-
+        isPossible = true;
+        for(int j = 0; j < pos; j++){
+            if(i == board[j] || i == board[j] + (pos - j) || i == board[j] - (pos - j)){
+                isPossible = false;
+                break;
+            }
+        }
+        if(isPossible){
+            board[pos] = i;
+            NQueen(pos + 1);
         }
     }
-    
-
-
-
     return 0;
 }
 
@@ -38,19 +36,14 @@ int main(){
     cin>>T;
 
     for(int tc = 1; tc <= T; tc++){
+        answer = 0;
 
         cin>>N;
 
-        board.resize(N+1);
-
         NQueen(0);
         
-
         cout<<"#"<<tc<<" "<<answer<<"\n";
     }
-
-
-
 
     return 0;
 }
