@@ -3,6 +3,7 @@
 using namespace std;
 
 char map[100][100] = {0,};
+
 int main(){
     int T,len = sizeof(map[0]);
     int Pelindrome_Len = 1, Max_Plen = INT_MIN;   //처음 찾을 펠린드롬 길이는 1, 펠린드롬들 중 가장 큰 길이 저장하는 max_Plen
