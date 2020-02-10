@@ -125,8 +125,10 @@ void adjacency(){
                 for(int idx = 0; idx < 4; idx++){
                     int nx = x + dx[idx];
                     int ny = y + dy[idx];
-                    nx %= N; 
-                    ny %= M;
+                    // nx %= N; 
+                    // ny %= M;
+                    if(ny == M) ny = 0;
+                    else if(ny < 0) ny = M - 1;
 
                     if(nx < N && nx >= 0 && ny < M && ny >= 0){
                         if(circle[x][y] == circle[nx][ny] && visit[nx][ny] == false && circle[nx][ny] != 0){
@@ -162,7 +164,7 @@ void avgPlusMinus(){
         }
     }
 
-    double avg = double(sum) / double(cnt);
+    float avg = float(sum) / float(cnt);
 
     for(int i = 0; i < N;i ++){
         for(int j = 0; j < M; j++){
@@ -171,6 +173,8 @@ void avgPlusMinus(){
                     circle[i][j] -= 1;
                 }else if(circle[i][j] < avg){
                     circle[i][j] += 1;
+                }else{
+                    continue;
                 }
             }
         }
