@@ -25,6 +25,8 @@ void initialize(){
 int cleaning(){
     int cnt = 0;
     queue<pair<int, int> > q;
+    int dx[] = {};
+    int dy[] = {};
     
     q.push(make_pair(r,c));
     cleanHere[r][c] = true;
@@ -50,6 +52,6 @@ int main(){
     answer = cleaning();
 
     cout<<answer<<"\n";
-    
+
     return 0;
 }
