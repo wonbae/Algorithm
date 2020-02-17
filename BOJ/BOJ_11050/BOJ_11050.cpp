@@ -2,19 +2,9 @@
 using namespace std;
 #define SIZE 1000
 
-long long binomialCoefficiant(int n, int k){
-    long long C[SIZE + 1];
-    memset(C, 0, sizeof(C));
-
-    C[0] = 1;
-
-    for(int i = 1; i <= n; i++){
-        for(int j = min(i, k); j > 0; j--){
-            C[j] = (C[j] + C[j - 1]) % 10007;
-        }
-    }
-
-    return C[k];
+int binomialCoefficiant(int n, int k){
+    if(n == k || k == 0) return 1;
+    return binomialCoefficiant(n - 1, k) + binomialCoefficiant(n - 1, k - 1);
 }
 
 int main(){
