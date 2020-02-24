@@ -38,10 +38,10 @@ int BFS(){
         }
     }
 
-                while(!q.empty()){
-                    int x = q.front().first;
-                    int y = q.front().second;
-                    q.pop();
+    while(!q.empty()){
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
 
                     // cout<<"\n=== Map  ====\n";
                     // for(int i = 0; i < raw; i++){
@@ -50,20 +50,20 @@ int BFS(){
                     //     }cout<<"\n";
                     // }
 
-                    for(int idx = 0; idx < 4; idx++){
-                        int nx = x + dx[idx];
-                        int ny = y + dy[idx];
+        for(int idx = 0; idx < 4; idx++){
+            int nx = x + dx[idx];
+            int ny = y + dy[idx];
 
-                        if(nx >= 0 && nx < raw && ny >= 0 && ny < col && Map[nx][ny] != -1){
-                            if(Visit[nx][ny] == 0 && Map[nx][ny] == 0){
-                                q.push(make_pair(nx,ny));
-                                Map[nx][ny] = Map[x][y] + 1;
-                                Visit[nx][ny] = 1;
-                            }
-                        }
-                    }
-                    
+            if(nx >= 0 && nx < raw && ny >= 0 && ny < col && Map[nx][ny] != -1){
+                if(Visit[nx][ny] == 0 && Map[nx][ny] == 0){
+                    q.push(make_pair(nx,ny));
+                    Map[nx][ny] = Map[x][y] + 1;
+                    Visit[nx][ny] = 1;
                 }
+            }
+        }
+                    
+    }
             
 
     if(iszero()){
