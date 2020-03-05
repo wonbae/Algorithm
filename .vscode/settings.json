@@ -17,6 +17,7 @@
         "list": "cpp",
         "string": "cpp",
         "valarray": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "queue": "cpp"
     }
 }
