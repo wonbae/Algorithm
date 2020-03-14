@@ -13,7 +13,7 @@ void backtracking(int depth, int sum){;
         cnt++;
         if(k == cnt){
             flag = false;
-            
+
             int i = 0;
             for( i = 0; i < depth - 1; i++){
                 cout<<ans[i]<<"+";
@@ -37,10 +37,11 @@ int main(){
 
     cin>>n>>k;
 
-    for(int i = 1; i <= 3; i++){
-        ans[idx] = i;
-        backtracking(idx + 1, i);
-    }
+    // for(int i = 1; i <= 3; i++){
+    //     ans[idx] = i;
+    //     backtracking(idx + 1, i);
+    // }
+    backtracking(0, 0);
     
     if(flag) cout<<-1<<"\n";
     
