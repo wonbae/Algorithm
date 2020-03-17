@@ -7,7 +7,6 @@ using namespace std;
 typedef pair<int, pair<int, int> > piii;
 int N, M, D;
 int Map[SIZE][SIZE];
-int tmp[SIZE][SIZE];
 int answer;
 
 int distance(int nx, int ny, int x, int y){
@@ -16,10 +15,11 @@ int distance(int nx, int ny, int x, int y){
 
 void kill(){
     // cout<<"\n +++++ new Archer ++++++\n";
-    vector<pair<int, int> > archer;
-    memcpy(tmp, Map, sizeof(Map));
+    int tmp[SIZE][SIZE];
     int term = N;
     int ecnt = 0;
+    vector<pair<int, int> > archer;
+    memcpy(tmp, Map, sizeof(Map));
 
     for(int i = 0; i < M; i++){
         if(Map[N][i] == 2) archer.push_back(make_pair(N, i));
@@ -28,26 +28,26 @@ void kill(){
     while(term--){
         vector<pair<int, int> > enermy;
         for(int i = 0; i < 3; i++){
-            priority_queue<piii, vector<piii>, greater<piii> > q2;    //1. distance 2.column 3.row / Ascending 오름차순
+            priority_queue<piii, vector<piii>, greater<piii> > q;    //1. distance 2.column 3.row / Ascending 오름차순
             for(int r = 0; r < N; r++){
                 for(int c = 0; c < M; c++){
                     if(tmp[r][c] == 0) continue;
                     if(tmp[r][c] == 1){
                         int dist = distance(archer[i].first, archer[i].second, r, c);
                         if(dist <= D){
-                            q2.push(make_pair(dist, make_pair(c, r)));  // pair안에선 앞에꺼 먼저 비교함 그래서 c 먼저 넣음
+                            q.push(make_pair(dist, make_pair(c, r)));  // pair안에선 앞에꺼 먼저 비교함 그래서 c 먼저 넣음
                         } 
                     }
                 }
             }
-            if(q2.size()){
-                int y = q2.top().second.first, x = q2.top().second.second;
+            if(q.size()){
+                int y = q.top().second.first, x = q.top().second.second;
                 // cout<<"d : "<<q2.top().first<<", r : "<<x<<", c : "<<y<<"\n";
                 enermy.push_back(make_pair(x, y));
             }
         }
 
-        //erase enermy
+        //erase enermies
         for(int i = 0; i < (int)enermy.size(); i++){
             int x = enermy[i].first, y = enermy[i].second;
             if(tmp[x][y]){
@@ -106,4 +106,3 @@ int main(){
 
     return 0;
 }
-
