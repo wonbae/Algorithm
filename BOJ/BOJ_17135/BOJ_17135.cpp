@@ -1,19 +1,18 @@
 // boj_17135 Castle Defense G4
-// row행, col열을 사용할 때, y를 row가 아닌 col로 생각하고 풀음.. 고로 row = x, col = y 나의 나쁜습관임
 #include<bits/stdc++.h>
 using namespace std;
-#define SIZE 15
+#define SIZE 16
 
-typedef pair<int, pair<int, int> > piii;
+typedef pair<int, pair<int, int> > piii;    //1. distance 2.column 3.row 
 int N, M, D;
 int Map[SIZE][SIZE];
 int answer;
 
-int distance(int nx, int ny, int x, int y){
+int distance(int nx, int ny, int x, int y){     //두 점 사이의 거리
     return abs(nx - x) + abs(ny - y);
 }
 
-void kill(){
+void kill(){    //누굴 죽일지 골라볼까요
     // cout<<"\n +++++ new Archer ++++++\n";
     int tmp[SIZE][SIZE];
     int term = N;
@@ -40,15 +39,15 @@ void kill(){
                     }
                 }
             }
-            if(q.size()){
-                int y = q.top().second.first, x = q.top().second.second;
+            if(!q.empty()){
+                int y = q.top().second.first, x = q.top().second.second;    //주로 y를 row, x를 col로 사용하지만.. 난 반대로.. 나쁜습관임..
                 // cout<<"d : "<<q2.top().first<<", r : "<<x<<", c : "<<y<<"\n";
                 enermy.push_back(make_pair(x, y));
             }
         }
 
         //erase enermies
-        for(int i = 0; i < (int)enermy.size(); i++){
+        for(int i = 0; i < enermy.size(); i++){
             int x = enermy[i].first, y = enermy[i].second;
             if(tmp[x][y]){
                 tmp[x][y] = 0;
