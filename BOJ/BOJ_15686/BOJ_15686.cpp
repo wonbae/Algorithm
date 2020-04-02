@@ -1,79 +1,70 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 #define SIZE 51
 
-inline int abs(int nx, int x, int ny, int y){
-    int x_tmp = nx > x ? (nx - x) : (x - nx);
-    int y_tmp = ny > y ? (ny - y) : (y - ny);
-    return x_tmp + y_tmp;
+typedef pair<int, int> pii;
+
+vector<pii> home;
+vector<pii> chicken;
+vector<int> v;
+int N, M;   //N <= 50, M <= 13
+int ans = 1e9;
+
+int getAbs(int a){
+    return a > 0 ? a : -a;
 }
 
-inline int min(int a, int b){
+int getMin(int a, int b){
+    if(a == b) return a;
     return a > b ? b : a;
 }
 
-int City[SIZE][SIZE] = {0,};
-int Visit[SIZE][SIZE] = {0,};
-int Check[SIZE][SIZE] = {0,};
-int N, M;   //N <= 50, M <= 13
+int getDist(){
+    int sum = 0;
 
-
-void PRINT(){
-    cout<<"\n====== Check =========\n";
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            cout<<Check[i][j];
-        }cout<<"\n";
+    for(int i = 0; i < home.size(); i++){
+        int dist = 987654321;
+        for(int j = 0; j < v.size(); j++){
+            int ncr_v = v[j];
+            dist = getMin(dist, getAbs(home[i].first - chicken[ncr_v].first) + getAbs(home[i].second - chicken[ncr_v].second));
+        }
+        sum += dist;
     }
+
+    return sum;
 }
 
-void solution(){
-    
+void nCr(int idx, int cnt){
+    if(cnt == M){
+        ans = getMin(ans, getDist());
+        return;
+    }
 
-
-
-
-}
-
-bool desc(int a, int b){
-    return a > b;
+    for(int i = idx; i < chicken.size(); i++){
+        v.push_back(i);
+        nCr(i + 1, cnt + 1);
+        v.pop_back();
+    }
 }
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
     
-    vector<int> ans;
-
     cin>>N>>M;
 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            cin>>City[i][j];
-            if(City[i][j] == 1) Visit[i][j] = 1;    //home
-            if(City[i][j] == 2) Visit[i][j] = 2;    //chicken
+            int input;
+            cin>>input;
+            if(input == 1) home.push_back(make_pair(i, j));    //home
+            if(input == 2) chicken.push_back(make_pair(i, j));    //chicken
         }
     }
+    
+    nCr(0, 0);
 
-    solution();
-
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            if(Check[i][j] != 0){
-                ans.push_back(Check[i][j]);
-            }
-        }
-    }
-
-    sort(ans.begin(), ans.end(), desc);
-
-    int result = 0;
-    for(int i = 0; i < M; i++){
-        result += ans[i];
-    }
-
-    cout<<result<<"\n";
+    cout<<ans<<"\n";
 
     return 0;
 }
