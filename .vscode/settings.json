@@ -19,6 +19,7 @@
         "valarray": "cpp",
         "vector": "cpp",
         "queue": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "iosfwd": "cpp"
     }
 }
