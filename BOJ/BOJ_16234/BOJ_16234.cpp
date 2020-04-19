@@ -8,73 +8,36 @@ int nation[SIZE][SIZE];
 int isUnion[SIZE][SIZE];
 int dx[] = {-1, 0, 1, 0};
 int dy[] = {0, 1, 0, -1};
-int day, divide;
+int day;
+bool again = true;
 
-bool open(int a, int b){
-    if(abs(a - b) >= L && abs(a - b) <= R){
-        return true;
+void migrate(vector<pair<int, int> > pcnt, int psum){      //이주
+    int avg = int(psum / pcnt.size());
+    for(int i = 0; i < pcnt.size(); i++){
+        nation[pcnt[i].first][pcnt[i].second] = avg;
     }
-    return false;
+    memset(isUnion, 0, sizeof(isUnion));
 }
 
-void migrate(int div){
-    cout<<"div : "<<div<<"\n";
-
-    for(int d = 1; d < div; d++){
-        int psum = 0;
-        int pcnt = 0;
-
-        cout<<"\n==== Before Union =====\n";
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                cout<<nation[i][j]<<" ";
-            }cout<<"\n";
-        }
-
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                if(isUnion[i][j] == d){
-                    psum += nation[i][j];
-                    pcnt++;
-                }
-            }
-        }
-
-        int res = int(psum / pcnt);
-
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                if(isUnion[i][j] == d){
-                    nation[i][j] = res;
-                }
-            }
-        }
-        cout<<"\n==== After Union =====\n";
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                cout<<nation[i][j]<<" ";
-            }cout<<"\n";
-        }
-    }
-
-    day += 1;
-    memset(isUnion, 0, sizeof(isUnion));
-    
-}
-
-bool Border(){
-    memset(isUnion, 0, sizeof(isUnion));
-    bool flag = false;
-    divide = 0;
+bool border(){       //열린 국경 확인 
     queue<pair<int, int> > q;
-
+    bool open = false;
+    again = false;
+    
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            if(isUnion[i][j] < 0){
-                q.push(make_pair(i, j));
-                divide += 1;
-                cout<<"divide : "<<divide<<", "<<"\n";
 
+            int people = 0, sum = 0;
+            open = false;
+            vector<pair<int, int> > v;
+
+            if(isUnion[i][j] == 0){
+                q.push(make_pair(i, j));
+                isUnion[i][j] = 1;
+                
+                v.push_back(make_pair(i, j));
+                people += nation[i][j];
+            
                 while(!q.empty()){
                     int x = q.front().first;
                     int y = q.front().second;
@@ -85,27 +48,29 @@ bool Border(){
                         int ny = y + dy[idx];
 
                         if(nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
-                        if(isUnion[nx][ny] >= 0) continue;
+                        if(isUnion[nx][ny] != 0) continue;
+                        int diff = abs(nation[nx][ny] - nation[x][y]);
+                        if(diff < L || diff > R) continue;
 
-                        if(open(nation[nx][ny], nation[x][y])){
-                            flag = true;
-                            isUnion[nx][ny] = divide;
-                            isUnion[x][y] = divide;
-                            q.push(make_pair(nx, ny));
-                        }
+                        isUnion[nx][ny] = 1;
+                        open = true;
+                        again = true;
+                        q.push(make_pair(nx, ny));
                     }
+                }
+
+                if(!open){
+                    people -= nation[i][j];
+                    v.pop_back();
+                }else{
+                    migrate(v, people);
+                    v.clear();
+                    people = 0;
                 }
             }
         }
     }
-
-    if(flag){
-        migrate(divide);
-    }else{
-        return true;
-    }
-    
-    return false;
+    return again;
 }
 
 int main(){
@@ -120,14 +85,16 @@ int main(){
         }
     }
 
-    while(1){
-        bool a = Border();
-        if(a){
-            break;
-        }
-    }
+    while(again){
+        memset(isUnion, 0, sizeof(isUnion));
 
+        if(border()){
+            day++;
+        }else break;
+    }
+    
     cout<<day<<"\n";
+    
 
     return 0;
 }
