@@ -50,10 +50,9 @@ void borderOpen(){       //열린 국경 확인
                         int nc = c + dy[dir];
 
                         if(nr < 0 || nr >= N || nc < 0 || nc >= N) continue;
-                        if(isUnion[nr][nc] != 0) continue;
 
                         int diff = abs(nation[nr][nc] - nation[r][c]);
-                        if(diff <= R && diff >= L){
+                        if(isUnion[nr][nc] == 0 && diff <= R && diff >= L){
                             q.push(make_pair(nr, nc));
                             isUnion[nr][nc] = 1;
                             open = true, again = true;
@@ -93,7 +92,7 @@ int main(){
         memset(isUnion, 0, sizeof(isUnion));
 
         borderOpen();
-        if(again) day++;
+        if(again) ++day;
     }
     
     cout<<day<<"\n";
