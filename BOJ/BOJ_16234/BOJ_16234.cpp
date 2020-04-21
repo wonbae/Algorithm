@@ -9,68 +9,70 @@ int isUnion[SIZE][SIZE];
 int dx[] = {-1, 0, 1, 0};
 int dy[] = {0, 1, 0, -1};
 int day;
-bool again = true;
+bool again;
 
-void migrate(vector<pair<int, int> > pcnt, int psum){      //이주
-    int avg = int(psum / pcnt.size());
-    for(int i = 0; i < pcnt.size(); i++){
-        nation[pcnt[i].first][pcnt[i].second] = avg;
+struct POS{
+    int x,y;
+};
+
+void migrate(vector<pair<int, int> > v_index, int nation_sum){      //이주
+    int avg = int(nation_sum / v_index.size());
+
+    for(int i = 0; i < v_index.size(); i++){
+        nation[v_index[i].first][v_index[i].second] = avg;
     }
-    memset(isUnion, 0, sizeof(isUnion));
 }
 
-bool border(){       //열린 국경 확인 
-    queue<pair<int, int> > q;
-    bool open = false;
-    again = false;
-    
+void borderOpen(){       //열린 국경 확인 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
 
-            int people = 0, sum = 0;
-            open = false;
+            bool open = false;
+            queue<pair<int, int> > q;
             vector<pair<int, int> > v;
+            int vsum = 0;
 
             if(isUnion[i][j] == 0){
+
                 q.push(make_pair(i, j));
                 isUnion[i][j] = 1;
-                
+
                 v.push_back(make_pair(i, j));
-                people += nation[i][j];
-            
+                vsum += nation[i][j];
+
                 while(!q.empty()){
-                    int x = q.front().first;
-                    int y = q.front().second;
+                    int r = q.front().first;
+                    int c = q.front().second;
                     q.pop();
 
-                    for(int idx = 0; idx < 4; idx++){
-                        int nx = x + dx[idx];
-                        int ny = y + dy[idx];
+                    for(int dir = 0; dir < 4; ++dir){
+                        int nr = r + dx[dir];
+                        int nc = c + dy[dir];
 
-                        if(nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
-                        if(isUnion[nx][ny] != 0) continue;
-                        int diff = abs(nation[nx][ny] - nation[x][y]);
-                        if(diff < L || diff > R) continue;
+                        if(nr < 0 || nr >= N || nc < 0 || nc >= N) continue;
+                        if(isUnion[nr][nc] != 0) continue;
 
-                        isUnion[nx][ny] = 1;
-                        open = true;
-                        again = true;
-                        q.push(make_pair(nx, ny));
+                        int diff = abs(nation[nr][nc] - nation[r][c]);
+                        if(diff <= R && diff >= L){
+                            q.push(make_pair(nr, nc));
+                            isUnion[nr][nc] = 1;
+                            open = true, again = true;
+
+                            v.push_back(make_pair(nr, nc));
+                            vsum += nation[nr][nc];
+                        }
                     }
                 }
 
-                if(!open){
-                    people -= nation[i][j];
-                    v.pop_back();
+                if(open){
+                    migrate(v, vsum);
                 }else{
-                    migrate(v, people);
                     v.clear();
-                    people = 0;
+                    vsum = 0;
                 }
             }
         }
     }
-    return again;
 }
 
 int main(){
@@ -85,16 +87,16 @@ int main(){
         }
     }
 
+    again = true;
     while(again){
+        again = false;
         memset(isUnion, 0, sizeof(isUnion));
 
-        if(border()){
-            day++;
-        }else break;
+        borderOpen();
+        if(again) day++;
     }
     
     cout<<day<<"\n";
-    
 
     return 0;
 }
