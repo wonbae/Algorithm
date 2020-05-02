@@ -20,6 +20,7 @@
         "vector": "cpp",
         "queue": "cpp",
         "istream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "random": "cpp"
     }
 }
