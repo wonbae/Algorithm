@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
     freopen("input.txt", "rt", stdin);
-    int n, select, min, tmp = 0;
+    int n, min, tmp = 0;
     cin>>n;
     vector<int> v(n);
 
