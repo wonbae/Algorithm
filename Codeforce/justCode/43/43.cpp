@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 
-int n, v[101];
+int n, v[1001];
 
 int cal(int s){
     int cnt = 1, sum = 0;
@@ -19,18 +19,19 @@ int cal(int s){
 
 int main(){
     freopen("input.txt", "rt", stdin);
-    int m, lt = 0, rt = 0, mid = 0, res = 0;
+    int m, lt = 0, rt = 0, mid = 0, res = 0, maxi = -2147000000;
     cin>>n>>m;
     
     for(int i = 1; i <= n; i++){
         cin>>v[i - 1];
         rt += v[i - 1];
+        if(v[i - 1] > maxi) maxi = v[i - 1];
     }
 
     while(lt <= rt){
         mid = (lt + rt) / 2;
         
-        if(cal(mid) <= m){
+        if(mid >= maxi && cal(mid) <= m){
             res = mid;
             rt = mid - 1;
         }else{
