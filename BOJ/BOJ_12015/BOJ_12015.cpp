@@ -5,7 +5,7 @@ using namespace std;
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
+
     int N, num;
     vector<int> v;
     cin>>N;
@@ -21,7 +21,6 @@ int main(){
             v[idx] = num;
         }
     }
-
     cout<<v.size()<<"\n";
     return 0;
 }
