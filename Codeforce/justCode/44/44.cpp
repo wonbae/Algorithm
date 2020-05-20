@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-#define SIZE 200000
+#define SIZE 200001
 
 int arr[SIZE], n;
 
