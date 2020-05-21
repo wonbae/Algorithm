@@ -3,7 +3,7 @@ using namespace std;
 
 int main(){
     ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
+    cin.tie(NULL); cout.tie(NULL);
     int N, H, mini = 2147000000, cnt = 0;
     cin>>N>>H;
     vector<int> v1(N/2), v2(N/2);
