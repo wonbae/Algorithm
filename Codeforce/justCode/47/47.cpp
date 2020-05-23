@@ -10,10 +10,8 @@ int  BFS(){
     int dr[] = {-1, 0, 1, 0};
     int dc[] = {0, 1, 0, -1};
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            int r = i;
-            int c = j;
+    for(int r = 0; r < N; r++){
+        for(int c = 0; c < N; c++){
             flag = true;
 
             for(int idx = 0; idx < 4; idx++){
