@@ -10,23 +10,34 @@ int main(){
     int N;
     ll num;
     cin>>N;
-    vector<ll> v;
-    cin>>num;
-    v.push_back(num);
+    vector<ll> v, ans;
+    vector<ll> LIS(N, 1);
 
-    for(int i = 1; i < N; i++){
+    for(int i = 0; i < N; i++){     //Init
         cin>>num;
-        if(v.back() < num){
-            v.push_back(num);
-        }else{
-            ll idx = lower_bound(v.begin(), v.end(), num) - v.begin();
-            v[idx] = num;
+        v.push_back(num);
+    }
+    
+    for(int i = 1; i < N; i++){     //get LIS
+        for(int j = 0; j < i; j++){
+            if(v[j] < v[i] && LIS[i] < LIS[j] + 1){
+                LIS[i] = LIS[j] + 1;
+            }
         }
     }
 
-    cout<<v.size()<<"\n";
-    for(int i = 0; i < v.size(); i++){
-        cout<<v[i]<<" ";
+    int maxi = -2147000000;         //searching max
+    for(int i = 0; i < N - 1; i++){
+        if(maxi < LIS[i] && v[i] < v[i + 1]){
+            maxi = LIS[i];
+            ans.push_back(v[i]);
+        }
     }
+
+    cout<<maxi<<"\n";
+    for(int i = 0; i < ans.size(); i++){
+        cout<<ans[i]<<" ";
+    }cout<<"\n";
+
     return 0;
 }
