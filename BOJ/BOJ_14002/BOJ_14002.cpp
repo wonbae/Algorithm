@@ -18,6 +18,7 @@ int main(){
         v.push_back(num);
     }
     
+    //이런식으로 구하면 안됨,,, 음... 더 열띠미 찾아보쟌
     for(int i = 1; i < N; i++){     //get LIS
         for(int j = 0; j < i; j++){
             if(v[j] < v[i] && LIS[i] < LIS[j] + 1){
