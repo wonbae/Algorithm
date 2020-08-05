@@ -4,28 +4,43 @@
 using namespace std;
 
 int MINI(int a, int b, int c){
-    int tmp = a > b ? b : a;
-    return tmp > c ? c : tmp;
+    int tmp = 2147000000;
+    if(a < b){
+        tmp = a;
+    }else tmp = b;
+    if(tmp < c){
+        return tmp;
+    }
+    return c;
 }
+
+int arr[1501] = {0,};
+
 int main(){
     int N;
     cin>>N;
-    int arr[1501] = {0,};
-    
+
     int p2 = 1, p3 = 1, p5 = 1;
+    int min = 0;
 
-    for(int i = 1; i <= N; i++){
-        int min = 2147000000;
-        min = MINI(p2 * 2, p3 * 3, p5 * 5);
+    arr[1] = 1;
+    for(int i = 2; i <= N; i++){    
+        min = MINI(arr[p2] * 2, arr[p3] * 3, arr[p5] * 5);
+    
+        if(min == arr[p2] * 2){
+            p2++;
+        } 
+        if(min == arr[p3] * 3){
+            p3++;
+        }
+        if(min == arr[p5] * 5){
+            p5++;   
+        }
+
         arr[i] = min;
-        
-        if(min == p2 * 2) p2++;
-        else if(min == p3 * 3) p3++;
-        else p5++;
-
     }
 
-
+    cout<<arr[N]<<"\n";
 
     return 0;
 }
