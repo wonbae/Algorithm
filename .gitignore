@@ -32,3 +32,5 @@
 *.app
 
 *.txt
+.DS_Store
+.vscode
