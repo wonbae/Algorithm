@@ -32,6 +32,10 @@
 *.app
 *.exec
 
+*.i*86
+*.x86_64
+*.hex
+
 # Linker output
 *.ilk
 *.map
