@@ -2,17 +2,25 @@
 #include<vector>
 using namespace std;
 
-int n, m, cnt = 0, sum = 0;
+int n, m, cnt = 0, show[10];
 int arr[10];
 int ch[10] = {0,};
 
 void DFS(int L, int val){
     if(L == n + 1){
-        if(val == m) cnt++;
+        if(val == m){
+            cnt++;
+            // for(int i = 0; i < L-1; i++){
+            //     cout<<show[i]<<" ";
+            // }cout<<"\n";
+        } 
         return ;
     }else{
+        // show[L - 1] = arr[L - 1];
         DFS(L + 1, val + arr[L-1]);
+        // show[L - 1] = -arr[L - 1];
         DFS(L + 1, val - arr[L-1]);
+        // show[L - 1] = 0;
         DFS(L + 1, val);
     }
 }
