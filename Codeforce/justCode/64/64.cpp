@@ -1,14 +1,24 @@
 #include<iostream>
 using namespace std;
 
-int a[21][21], visit[21][21], cnt, n;
+int a[21][21], ch[21], cnt = 0, n;
 
-void dfs(int L){
-    if(L + 1 > n){
-
-        return ;
+void dfs(int v){
+    if(v+1 == n){
+        cnt++;
+        // for(int i = 0; i < n; i++){
+        //     if(ch[i]){
+        //         cout<<i+1<<" ";
+        //     }
+        // }cout<<"\n";
     }else{
-        dfs(L + 1);
+        for(int i = 0; i < n; i++){    
+            if(a[v][i] == 1 && ch[i] == 0){
+                ch[i] = 1;
+                dfs(i);
+                ch[i] = 0;
+            }
+        }
     }
 }
 
@@ -21,14 +31,11 @@ int main(){
         cin>>r>>c;
         a[r - 1][c - 1] = 1;
     }
-
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            cout<<a[i][j]<<" ";
-        }cout<<"\n";
-    }
-
+    
+    ch[0] = 1;
     dfs(0);
+
+    cout<<cnt<<"\n";
 
     return 0;
 }
