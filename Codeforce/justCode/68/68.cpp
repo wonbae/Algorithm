@@ -2,23 +2,20 @@
 #include<vector>
 using namespace std;
 
-int n, w, sum = 0, mini = 2147000000, ch[20], weight[20];
-vector<int> v[20];
+int n, w, sum = 0, mini = 2147000000, ch[20];
+vector<pair<int, int> > v[20];
 
-void dfs(int ver){
+void dfs(int ver, int sum){
     if(ver == n){
         if(mini > sum){
             mini = sum;
-            sum = 0;
         }
     }else{
-        for(int i = 1; i <= v[ver].size(); i++){
-            if(ch[v[ver][i]] == 0){
-                ch[v[ver][i]] = 1;
-                sum += weight[v[ver][i]];
-                dfs(v[ver][i]);
-                ch[v[ver][i]] = 0;
-                // sum -= weight[v[ver][i]];
+        for(int i = 0; i < v[ver].size(); i++){
+            if(ch[v[ver][i].first] == 0){
+                ch[v[ver][i].first] = 1;
+                dfs(v[ver][i].first, sum + v[ver][i].second);
+                ch[v[ver][i].first] = 0;
             }
         }
     }
@@ -32,12 +29,11 @@ int main(){
 
     for(int i = 0; i < m; i++){
         cin>>a>>b>>w;
-        v[a].push_back(b);
-        weight[v[a][b]] = w;
+        v[a].push_back(make_pair(b, w));
     }
 
     ch[1] = 1;
-    dfs(1);
+    dfs(1, 0);
 
     cout<<mini<<"\n";
 
