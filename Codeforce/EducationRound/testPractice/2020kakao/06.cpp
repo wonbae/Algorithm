@@ -52,4 +52,4 @@ int solution(int n, vector<int> weak, vector<int> dist) {
     if (res == INF) return -1;
     return res;
 }
-[출처] 2020 카카오 블라인드 채용 KAKAO BLIND RECRUITMENT 후기|작성자 AM
+// [출처] 2020 카카오 블라인드 채용 KAKAO BLIND RECRUITMENT 후기|작성자 AM

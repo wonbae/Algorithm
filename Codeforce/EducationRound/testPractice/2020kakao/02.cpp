@@ -54,4 +54,4 @@ string f2(string s)
 string solution(string s) {
     return f1(s);
 }
-[출처] 2020 카카오 블라인드 채용 KAKAO BLIND RECRUITMENT 후기|작성자 AM
+// [출처] 2020 카카오 블라인드 채용 KAKAO BLIND RECRUITMENT 후기|작성자 AM

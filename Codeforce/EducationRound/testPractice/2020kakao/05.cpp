@@ -90,4 +90,4 @@ vector<vector<int>> solution(int N, vector<vector<int>> q) {
     sort(res.begin(), res.end());
     return res;
 }
-[출처] 2020 카카오 블라인드 채용 KAKAO BLIND RECRUITMENT 후기|작성자 AM
+// [출처] 2020 카카오 블라인드 채용 KAKAO BLIND RECRUITMENT 후기|작성자 AM
