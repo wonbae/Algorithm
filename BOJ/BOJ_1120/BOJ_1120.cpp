@@ -9,7 +9,7 @@ int main(){
     for(int i = 0; i <= b.length() - a.length(); i++){
         cnt = 0;
         for(int j = 0; j < a.length(); j++){
-            if(a[j] != b[j + 1]) cnt++;
+            if(a[j] != b[j + i]) cnt++;
         }
         if(mini > cnt) mini = cnt;
     }
