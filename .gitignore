@@ -1043,4 +1043,6 @@ settings.json
 *.txt
 
 # test file
-Codeforce/EducationRound/testPractice/*
+Codeforce/EducationRound/testPractice
+testPractice/
+testPractice/ *
