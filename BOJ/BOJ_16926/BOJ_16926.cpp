@@ -5,7 +5,7 @@ using namespace std;
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n, m, r, c;
+    int n, m, r, c, mod;
     cin>>n>>m>>r;
     vector<vector<int> > v(n + 1, vector<int>(m + 1, 0));
 
@@ -16,6 +16,10 @@ int main(){
     }
     if(m < n) c = m / 2;
     else c = n / 2;
+
+    // mod = 2 * (n + m - 4 * (c - 2));
+
+    // r %= mod;
 
     while(r--){
         for(int t = 0; t < c; t++){
