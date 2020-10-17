@@ -1,6 +1,6 @@
 #include <iostream>
 #include <queue>
-#include <vector>
+#include <string>
 using namespace std;
 #define INF 2147000000
 
@@ -55,11 +55,12 @@ void bfs(){
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    char input;
     cin>>m>>n;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-            cin>>maze[i][j];
+            cin>>input;
+            maze[i][j] = input - '0';
         }
     }
     for(int i = 0; i < n; i++){
@@ -70,12 +71,6 @@ int main(){
 
     bfs();
 
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            cout<<dist[i][j]<<" ";
-        }cout<<"\n";
-    }
-    
-
+    cout<<dist[n - 1][m - 1]<<"\n";
     return 0;
 }
