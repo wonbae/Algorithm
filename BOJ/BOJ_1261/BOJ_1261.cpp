@@ -1,66 +1,81 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-#include <math.h>
-#include <iomanip>
 using namespace std;
-typedef double dd;
-typedef pair<dd, pair<int, int> > pii;
+#define INF 2147000000
 
-int unf[101];
+int maze[101][101];
+int dist[101][101];
+int dr[] = {-1, 0, 1, 0};
+int dc[] = {0, 1, 0, -1};
+int n, m;
 
-int find(int v){
-    if(unf[v] == v) return v;
-    return unf[v] = find(unf[v]);
-}
-
-void Union(int a, int b){
-    a = find(a);
-    b = find(b);
-    if(a != b) unf[a] = b;
-}
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-
-    int n;
-    dd a, b;
-    cin>>n;
-    vector<pair<dd, dd> > v;
-    priority_queue< pii, vector<pii>, greater<pii> > pq;
-
-    for(int i = 0; i < n; i++){
-        cin>>a>>b;
-        v.push_back(make_pair(a, b));
+struct info{
+    int x;
+    int y;
+    int w;
+    info(int a, int b, int c){
+        x = a;
+        y = b;
+        w = c;
     }
-
-    for(int i = 1; i <= n; i++){
-        unf[i] = i;
+    bool operator<(const info& we) const {
+        return w > we.w;
     }
+};
 
-    for(int i = 0; i < v.size() - 1; i++){
-        for(int j = i + 1; j < v.size(); j++){
-            dd val = sqrt(pow((v[i].first - v[j].first), 2) + pow((v[i].second - v[j].second), 2));     
-            pq.push(make_pair(val, make_pair(i, j)));
-        }
-    }
+void bfs(){
+    priority_queue<info> pq;
+    pq.push(info(0, 0, 0));
+    dist[0][0] = 0;
 
-    int cnt = 0;
-    dd cost = 0;
     while(!pq.empty()){
-        int x = pq.top().second.first;
-        int y = pq.top().second.second;
-        dd num = pq.top().first;
+        int r = pq.top().x;
+        int c = pq.top().y;
+        int d = pq.top().w;
         pq.pop();
 
-        if(find(unf[x]) != find(unf[y])){
-            cost += num;
-            cnt++;
-            Union(x, y);
-            if(cnt == n - 1) break;
+        if(d > dist[r][c]) continue;
+
+        for(int i = 0; i < 4; i++){
+            int nr = r + dr[i];
+            int nc = c + dc[i];
+            int nd = d + maze[nr][nc];
+
+            if(nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
+            if(dist[nr][nc] > nd){
+                dist[nr][nc] = nd;
+                pq.push(info(nr, nc, nd));
+            }
+        }   
+    }
+    return ;
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    cin>>m>>n;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cin>>maze[i][j];
+        }
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            dist[i][j] = INF;
         }
     }
 
-    cout<<fixed<<setprecision(2)<<cost<<"\n";
+    bfs();
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cout<<dist[i][j]<<" ";
+        }cout<<"\n";
+    }
+    
+
     return 0;
 }

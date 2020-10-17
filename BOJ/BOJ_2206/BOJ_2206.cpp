@@ -19,6 +19,32 @@ const int dc[] = {0, 1, 0, -1};
 int n, m, ans;
 bool flag = false;
 
+// void vi_print(){
+//     cout<<"\n++++++++ visit 0 ++++++++\n";
+//     for(int i = 0; i < n; i++){
+//         for(int j = 0; j < m; j++){
+//             cout<<visit[i][j][0]<<" ";
+//         }cout<<"\n";
+//     }
+//     cout<<"\n ++++ visit 1 ++++\n";
+//     for(int i = 0; i < n; i++){
+//         for(int j = 0; j < m; j++){
+//             cout<<visit[i][j][1]<<" ";
+//         }cout<<"\n";
+//     }
+//     cout<<"\n";
+// }
+
+// void m_print(){
+//     cout<<"\n======== Map ==========\n";
+//     for(int i = 0; i < n; i++){
+//         for(int j = 0; j < m; j++){
+//             cout<<Map[i][j]<<" ";
+//         }cout<<"\n";
+//     }
+//     cout<<"\n";
+// }
+
 void bfs(){
     queue<info> q;
     q.push(info(0, 0, 0));
@@ -30,11 +56,16 @@ void bfs(){
         int wall = q.front().w;
         q.pop();
 
+        // m_print();
+        // cout<<"("<<r<<", "<<c<<")"<<"\n";
+        // vi_print();
+
         if(r == n - 1 && c == m - 1){
             ans = visit[r][c][wall];
             flag = true;
             return ;
         } 
+
         for(int idx = 0; idx < 4; idx++){
             int nr = r + dr[idx];
             int nc = c + dc[idx];
