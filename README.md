@@ -2,7 +2,7 @@
 🔥Cracking the Algorithm(Problem Solving)🔥
 
 - BOJ(BaekJoon Online Judge)
-  - ID: dnjsqo_92 (Gold3)
+  - ID: dnjsqo_92 (Gold2)
   - https://solved.ac/dnjsqo_92
 - SWEA(SW Expert Academy)
   - ID : 코딩인터뷰
