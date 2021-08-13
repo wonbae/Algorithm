@@ -27,7 +27,6 @@ int main(){
     vector<int> dist(n + 1, INF);
     vector<pair<int, int> > map[1001];
     priority_queue<edge> pq;
-    // vector<vector<int> > ans;
     vector<int> ans[1001];
 
     for(int i = 0; i < m; i++){
