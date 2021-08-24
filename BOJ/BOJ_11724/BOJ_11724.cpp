@@ -39,8 +39,6 @@ int main(){
             check[tmp] = true;
         }
     }
-
     cout<<cnt<<"\n";
-
     return 0;
 }
