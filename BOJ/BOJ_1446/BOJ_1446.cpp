@@ -12,11 +12,12 @@ struct road{
         sc = c;
     }
     bool operator<(const road& t) const{
-        return sc > t.sc;
+        return sc < t.sc;
     }
 };
 
 int main(){
+    ios_base::sync_with_stdio(false), cin.tie(NULL);
     int n, d;
     cin>>n>>d;
 
@@ -29,7 +30,7 @@ int main(){
         cin>>depart>>desti>>shortcut;
         map[depart].push_back(make_pair(desti, shortcut));
     }
-
+    
     int end = 0;
     pq.push(road(0, 0));
     dist[0] = 0;
@@ -43,14 +44,18 @@ int main(){
         for(int i = 0; i < map[now].size(); i++){
             int next = map[now][i].first;
             int nw = map[now][i].second + w;
-            if(dist[next] > nw && nw <= d && next <= d){
+            if(dist[next] > nw){
                 dist[next] = nw;
                 end = next;
                 pq.push(road(next, nw));
             }
         }
+
+        if(now+1 <= d && dist[now+1] > w+1){
+            dist[now+1] = w+1;
+            pq.push(road(now+1, w+1));
+        }
     }
-    
-    cout<<d - end + dist[end]<<"\n";
+    cout<<dist[d]<<"\n";
     return 0;
 }
