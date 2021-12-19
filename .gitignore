@@ -1048,3 +1048,5 @@ testPractice/
 testPractice/ *
 monthly_code/
 monthly_code/ *
+Codeforce/div3/*.cpp
+
