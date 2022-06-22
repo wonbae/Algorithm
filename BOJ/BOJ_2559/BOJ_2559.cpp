@@ -1,33 +1,27 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n, k, maxi = -2147000000, sum = 0;
+    int n, k, maxi=-2147483647;
     cin>>n>>k;
-    vector<int> v(n);
-    vector<int> dp(n);
 
+    vector<int> v(n,0);
+    vector<int> preSum(n,0);
     for(int i = 0; i < n; i++){
         cin>>v[i];
-        if(i < k){
-            sum += v[i];
-        }
+        
+        if(i>0){
+            preSum[i] = preSum[i-1] + v[i];
+        }else preSum[0] = v[0];
     }
 
-    dp[0] = sum;
-    if(maxi < sum) maxi = sum;
-
-    for(int i = 0; i < n - k; i++){
-        sum = dp[i] - v[i];
-        dp[i + 1] = sum + v[i + k];
-        if(dp[i + 1] > maxi) maxi = dp[i + 1];
+    for(int i = 0; i <= n-k; i++){
+        int tmp = preSum[i+k-1] - preSum[i-1];
+        if(tmp > maxi) maxi = tmp;
     }
-
-    cout<<maxi<<"\n";
-
+    cout<<maxi;
     return 0;
 }
