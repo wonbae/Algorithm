@@ -4,39 +4,18 @@ using namespace std;
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(NULL);
 
-    string input;
-    bool flag = true;
+    string str;
+    bool flag=true;
 
-    cin>>input;
-
-    int len = input.length();
-    int mid = len/2;
-
-    if(mid % 2 == 0){  //even
-        for(int i = 0; i <= mid - 1; i++){
-            if(input[i] == input[len - 1 - i]){
-                flag = true;
-            }else{
-                flag = false;
-                cout<<flag;
-                return 0;
-            }
+    cin>>str;
+    int strLen = str.length();
+    for(int i = 0; i < strLen/2; i++){
+        if(str[i] == str[strLen - 1 - i]) continue;
+        else{
+            flag=false;
+            break;
         }
     }
-    else{           //odd
-        for(int i = 0; i < mid; i++){
-            if(input[i] == input[len - 1 - i]){
-                flag = true;
-            }else{
-                flag = false;
-                cout<<flag;
-                return 0;
-            }
-        }
-    }
-    
-
-    cout<<flag<<"\n";
-
+    cout<<flag;
     return 0;
 }
