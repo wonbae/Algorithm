@@ -7,7 +7,7 @@ int main(){
         int num=1, cnt=1;
         while(true){
             if(num%n==0){
-                printf("%d",cnt);
+                printf("%d\n",cnt);
                 break;
             }else{
                 num = (num*10)+1;
