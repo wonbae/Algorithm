@@ -22,10 +22,10 @@ int main(){
     string query;
     for(int i = 0; i < m; i++){
         cin>>query;
-        if(query[0] >= '0' && query[0] <= '9'){
-            cout<<number[stoi(query)]<<"\n";
-        }else{
+        if(atoi(query.c_str()) == 0){//string -> char -> int, 문자가 맨 처음 있으면 0을 반환, (숫자+문자)면 문자 나오기 전 숫자만 나옴
             cout<<name[query]<<"\n";
+        }else{
+            cout<<number[atoi(query.c_str())]<<"\n";
         }
     }
     
