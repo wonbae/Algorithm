@@ -1,5 +1,42 @@
 
 
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int alph[26];
+int main(){
+    ios_base::sync_with_stdio(0), cin.tie(NULL);
+    string str;
+    cin>>str;
+
+    int odd = 0;
+    char mid;
+    string res = "";
+
+    for(int i = 0; i < str.size(); i++) alph[str[i]-'A']++;
+
+    for(int i = 'Z'; i >= 'A'; i--){
+        if(alph[i-'A']){
+            if(alph[i-'A'] & 1){
+                odd++;
+                alph[i-'A']--;
+                mid=char(i);
+            }
+            if(odd == 2) break;
+            for(int j = 0; j < alph[i-'A']; j+=2){
+                res = char(i) + res;
+                res += char(i);
+            }
+        }
+    }
+    if(mid){
+        res.insert(res.begin() + res.size() / 2, mid);
+    }
+    if(odd==2) cout<<"I\'m Sorry Hansoo";
+    else cout<<res;
+
+    return 0;
+}
 
 
 
