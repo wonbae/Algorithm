@@ -1,89 +1,55 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define SIZE 100
 
-int land[SIZE][SIZE];
-bool sink[SIZE][SIZE];
-int N;
+int check[101][101], v[101][101], sink[101][101], N, cnt, ans=1;
+const int idx[] = {0, 1, 0, -1};
+const int idy[] = {1, 0, -1, 0};
 
-int MAX(int a, int b){
-    return a > b ? a : b;
-} 
-
-void Input(){
-    cin>>N;
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            cin>>land[i][j];
-        }
+void dfs(int x, int y){
+    check[x][y] = 1;
+    
+    for(int i = 0; i < 4; i++){
+        int nx = x + idx[i];
+        int ny = y + idy[i];
+        if(nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+        if(!check[nx][ny] && sink[nx][ny] == 0) dfs(nx,ny);
     }
-
-}
-
-void initialize(int h){
-    memset(sink, false, sizeof(sink)); 
-
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            if(land[i][j] <= h) sink[i][j] = true;
-        }
-    }
-}
-
-int safeland(int h){     //BFS
-    int count = 0;
-    queue<pair<int, int> > q;
-    int dx[] = {-1, 0, 1, 0};      //시계방향
-    int dy[] = {0, 1, 0, -1};
-
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            if(!sink[i][j] && land[i][j] > h){
-                q.push(make_pair(i,j));
-                sink[i][j] = true;
-                count++;
-
-                while(!q.empty()){
-                    int x = q.front().first;
-                    int y = q.front().second;
-                    q.pop();
-
-                    for(int idx = 0; idx < 4; idx++){
-                        int nx = x + dx[idx];
-                        int ny = y + dy[idx];
-
-                        if(nx < N && nx >= 0 && ny < N && ny >= 0){
-                            if(land[nx][ny] > h && !sink[nx][ny]){
-                                q.push(make_pair(nx,ny));
-                                sink[nx][ny] = true;
-                            }
-                            
-                        }else continue;
-                    }
-                }
-            }else continue;
-        }
-    }
-
-    return count;
+    return ;
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-    int res = 0;
-    int maximum = 1;
-
-    Input();
-    
-    for(int h = 1; h <= 100; h++){
-        
-        initialize(h);
-        maximum = MAX(maximum,safeland(h));
-        res = maximum;
+    ios_base::sync_with_stdio(0), cin.tie(NULL);
+    cin>>N;
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < N; j++){
+            cin>>v[i][j];
+        }
     }
-    
-    cout<<res<<"\n";
+
+    for(int h = 1; h <= 100; h++){
+        cnt=0;
+        fill(&check[0][0], &check[0][0] + 101*101, 0);
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                if(v[i][j] <= h){
+                    sink[i][j] = 1;
+                }else{
+                    sink[i][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                if(check[i][j] == 0 && sink[i][j] == 0){
+                    dfs(i,j);
+                    cnt++;
+                }
+            }
+        }
+        ans = max(cnt,ans);
+    }
+    cout<<ans<<"\n";
 
     return 0;
 }
