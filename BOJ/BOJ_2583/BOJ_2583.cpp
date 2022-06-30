@@ -1,109 +1,62 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define MAX 100
+vector<vector<int> > v;
+vector<vector<int> > check;
+vector<int> ans;
+int m, n, cnt;
 
-int Map[MAX][MAX] = {0,};
-int visit[MAX][MAX] = {0,};
-int M, N;
-int K;
-vector<int> cnt;
+const int dx[] = {0, 1, 0, -1};
+const int dy[] = {1, 0, -1, 0};
 
-void init() {
-    int x1, y1, x2, y2;
-
-    while(K--){
-        // (0,2), (4,4)
-        cin>>x1>>y1>>x2>>y2;
-        
-        for(int x = x1; x < x2; x++){
-            for(int y = y1; y < y2; y++){
-                Map[y][x] = 1;
-                visit[y][x] = 1;
-            }
-        }
-        
-    }
-    
-}
-
-void BFS(){
-    int dx[] = {0, 1, 0, -1};
-    int dy[] = {1, 0, -1, 0};
-    queue<pair<int, int> > q;
-
-    for(int i = 0; i < M; i++){
-        for(int j = 0; j < N; j++){
-            if(visit[i][j] == 0 && Map[i][j] == 0){
-                q.push(make_pair(i,j));
-                visit[i][j] = 1;
-                int count = 1;
-
-                // cout<<"\n==== visit =====\n";
-                // for(int i = 0; i < M; i++){
-                //     for(int j = 0; j < N; j++)
-                //     {
-                //         cout<<visit[i][j];
-                //     }cout<<"\n";
-                // }
-
-                while(!q.empty()){
-                    int x = q.front().first;
-                    int y = q.front().second;
-                    q.pop();
-
-                    for(int idx = 0; idx < 4; idx++){
-                        int nx = x + dx[idx];
-                        int ny = y + dy[idx];
-
-                        if(nx >= 0 && nx < M && ny >= 0 && ny < N){
-                            if(Map[nx][ny] == 0 && visit[nx][ny] == 0){
-                                q.push(make_pair(nx,ny));
-                                visit[nx][ny] = 1;
-                                count++;
-                            }
-                        }
-                            
-                    }
-                }
-                cnt.push_back(count);
-            }
+void dfs(int x, int y){
+    check[x][y] = 1;
+    for(int i = 0; i < 4; i++){
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if(nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+        if(check[nx][ny] == 0 && v[nx][ny] == 0){
+            cnt++;
+            dfs(nx,ny);
         }
     }
+    return ;
 }
-
 int main(){
+    ios_base::sync_with_stdio(false), cin.tie(NULL);
 
-    cin>>M>>N>>K;
+    int k;
+    cin>>m>>n>>k;
 
-    init();
+    v.resize(m, vector<int>(n,0));
+    check.resize(m, vector<int>(n,0));
+    
 
-    // cout<<"\n==== Map =====\n";
-    // for(int i = 0; i < M; i++){
-    //     for(int j = 0; j < N; j++)
-    //     {
-    //         cout<<Map[i][j];
-    //     }cout<<"\n";
-    // }
-
-    // cout<<"\n==== visit =====\n";
-    // for(int i = 0; i < M; i++){
-    //     for(int j = 0; j < N; j++)
-    //     {
-    //         cout<<visit[i][j];
-    //     }cout<<"\n";
-    // }
-
-    BFS();
-
-    sort(cnt.begin(), cnt.end());
-    int size = cnt.size();
-
-    cout<<size<<"\n";
-
-    for(int i = 0; i < size; i++){
-        cout<<cnt[i]<<" ";
+    for(int i = 0; i < k; i++){
+        int lx, ly, rx, ry;
+        cin>>lx>>ly>>rx>>ry;
+        for(int i = ly; i < ry; i++){
+            for(int j = lx; j < rx; j++){
+                v[i][j] = 1;
+            }
+        }
     }
-            
+
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(check[i][j] == 0 && v[i][j] == 0){
+                cnt = 1;
+                dfs(i,j);
+                ans.push_back(cnt);
+            }
+        }
+    }
+    cout<<ans.size()<<"\n";
+    sort(ans.begin(), ans.end());
+    for(int i = 0; i < ans.size(); i++){
+        cout<<ans[i]<<" ";
+    }
+
+
     return 0;
 }
