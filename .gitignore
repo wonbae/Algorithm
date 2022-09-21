@@ -1050,3 +1050,5 @@ monthly_code/
 monthly_code/ *
 Codeforce/div3/*.cpp
 
+BOJ/sample/sample
+BOJ/sample/sample.cpp
