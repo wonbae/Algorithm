@@ -2,18 +2,14 @@
 using namespace std;
 
 int main(){
-    int x, stick = 64, res = 0, cnt = 0;
+    ios_base::sync_with_stdio(0), cin.tie(NULL), cout.tie(NULL);
+    int x, stick=64, cnt=1;
     cin>>x;
 
-    while(x > 0){
-        if(stick > x) stick /= 2;
-        else{
-            cnt++;
-            x -= stick;
-        }
+    while(x>1){
+        if(1 & x) cnt++;
+        x/=2;
     }
-
-    cout<<cnt<<"\n";
-
+    cout<<cnt;
     return 0;
 }
