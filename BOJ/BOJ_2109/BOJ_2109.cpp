@@ -1,44 +1,32 @@
-#include<iostream>
-#include<queue>
-#include<vector>
+#include<bits/stdc++.h>
+#define fastio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL);
 using namespace std;
 
-struct cmp{
-    bool operator()(pair<int, int> &a, pair<int, int> &b){
-        if(a.first == b.first){
-            return a.second < b.second;
-        }
-        return a.first > b.first;
-    }
-};
-
 int main(){
-    ios_base::sync_with_stdio(false), cin.tie(NULL);
-    int n, p, d, sum = 0;
+    fastio;
+    int n, p, d, ans = 0;
+    vector<pair<int, int> > v;
+    priority_queue<int, vector<int>, greater<int> > pq;
     cin>>n;
-    priority_queue<pair<int, int>, vector<pair<int, int> >, cmp> pq;
+    
     for(int i = 0; i < n; i++){
         cin>>p>>d;
-        pq.push(make_pair(d,p));
+        v.push_back({d, p});
     }
+    sort(v.begin(), v.end());
 
-    int before = 0, cnt = 0;
-
-    while(!pq.empty()){
-        int day = pq.top().first;
-        int pay = pq.top().second;
-        pq.pop();
-
-        if(before == day){
-            continue;
-        }else{
-            if(cnt <= day){
-                sum += pay;
-                before = day;
-                cnt++;
-            }
+    for(int i = 0; i < v.size(); i++){
+        pq.push(v[i].second);
+        if(pq.size() > v[i].first){
+            pq.pop();
         }
     }
-    cout<<sum<<"\n";
+
+    while(!pq.empty()){
+        ans += pq.top();
+        pq.pop();
+    }
+
+    cout<<ans<<"\n";
     return 0;
 }
