@@ -1,31 +1,18 @@
 #include<bits/stdc++.h>
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
 using namespace std;
 
-int max(int a, int b){
-    return a > b? a : b;
-}
-
 int main(){
-    ios_base::sync_with_stdio(false); cin.tie(NULL);
-
-    int n,tmp;
-    vector<int> v;
-    
-
+    int n, sum=0, ans=-1004, num;
     cin>>n;
-
+    
     for(int i = 0; i < n; i++){
-        cin>>tmp;
-        v.push_back(tmp);
+        cin>>num;
+        sum += num;
+        ans = max(ans, sum);
+        if(sum < 0) sum = 0;
     }
 
-    int mm = v[0];
-
-    for(int i = 0; i < n - 1; i++){
-        mm = max(v[i] + v[i + 1], mm);
-    }
-
-    cout<<mm<<"\n";
-
+    cout<<ans;
     return 0;
 }
