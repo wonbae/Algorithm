@@ -34,7 +34,7 @@ void update_lazy(int node, int start, int end){
 }
 
 
-void update(int left, int right, int value, int node, int start, int end){
+void update(int left, int right, ll value, int node, int start, int end){
     update_lazy(node, start, end);
 
     if(right < start || end < left)
