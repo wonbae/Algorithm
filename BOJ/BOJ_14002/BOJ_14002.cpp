@@ -1,44 +1,52 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
+
+int N;
+int prevs[1004], LIS[1004], v[1004];
+
+
+void go(int idx){
+    if(idx==-1) return;
+    go(prevs[idx]);
+    cout<<v[idx]<<" ";
+    return;
+}
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
     
-    int N;
-    ll num;
     cin>>N;
-    vector<ll> v, ans;
-    vector<ll> LIS(N, 1);
+
+    fill(prevs, prevs+1004, -1);
+    fill(LIS, LIS+1004, 1);
 
     for(int i = 0; i < N; i++){     //Init
-        cin>>num;
-        v.push_back(num);
+        cin>>v[i];
     }
-    
-    //이런식으로 구하면 안됨,,, 음... 더 열띠미 찾아보쟌
-    for(int i = 1; i < N; i++){     //get LIS
+ 
+    for(int i = 0; i < N; i++){     //get LIS
         for(int j = 0; j < i; j++){
             if(v[j] < v[i] && LIS[i] < LIS[j] + 1){
                 LIS[i] = LIS[j] + 1;
-            }
+                prevs[i] = j;
+             }
         }
     }
 
-    int maxi = -2147000000;         //searching max
-    for(int i = 0; i < N - 1; i++){
-        if(maxi < LIS[i] && v[i] < v[i + 1]){
+    int maxi = 1;         //searching max
+    int idx = 0;
+    for(int i = 0; i < N; i++){
+        if(maxi < LIS[i]){
             maxi = LIS[i];
-            ans.push_back(v[i]);
+            idx = i;
         }
     }
-
     cout<<maxi<<"\n";
-    for(int i = 0; i < ans.size(); i++){
-        cout<<ans[i]<<" ";
-    }cout<<"\n";
+    go(idx);
 
+    // for(int i = idx; i != -1; i = prevs[i]){
+    //     // cout<<v[i]<<" ";
+    // }
     return 0;
 }
