@@ -1,16 +1,16 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
+#define fastio ios_base::sync_with_stdio(0), cin.tie(NULL), cout.tie(NULL);
 using namespace std;
 
-int n, v[100001];
+int n, m;
+vector<int> v;
 
-int cal(int s){
+int calc(int s){
     int cnt = 1, sum = 0;
     for(int i = 0; i < n; i++){
         if(sum + v[i] > s){
-            cnt++;
             sum = v[i];
+            cnt++;
         }else{
             sum += v[i];
         }
@@ -19,21 +19,23 @@ int cal(int s){
 }
 
 int main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int m, lt = 0, rt = 0, mid = 0, res = 0, maxi = -2147000000;
+    fastio;
     cin>>n>>m;
-    
-    for(int i = 1; i <= n; i++){
-        cin>>v[i - 1];
-        rt += v[i - 1];
-        if(v[i - 1] > maxi) maxi = v[i - 1];
-    }
+
+    int lt = 0, rt = 0, res, maxi = -987654321;
+
+    for(int i = 0; i < n; i++){
+        int num;
+        cin>>num;
+        v.push_back(num);
+        rt += num;
+        maxi = max(maxi, num);
+    }        
 
     while(lt <= rt){
-        mid = (lt + rt) / 2;
-        
-        if(mid >= maxi && cal(mid) <= m){
+        int mid = (lt+rt)/2;
+
+        if(calc(mid) <= m && maxi <= mid){
             res = mid;
             rt = mid - 1;
         }else{
@@ -41,6 +43,6 @@ int main(){
         }
     }
 
-    cout<<res<<"\n";
+    cout<<res;
     return 0;
 }
