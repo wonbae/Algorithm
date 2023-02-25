@@ -2,12 +2,13 @@
 #define fastio ios_base::sync_with_stdio(false), cin.tie(NULL);
 using namespace std;
 
-int lis[504];
+// int lis[504];
 
 int main(){
     fastio;
     int n, a, b, tmp = 0;
     vector<pair<int, int> > v;
+    vector<int> lis;
         
     cin>>n;
     for(int i = 0; i < n; i++){
@@ -16,8 +17,10 @@ int main(){
     }
     sort(v.begin(), v.end());
 
+    lis.resize(n,0);
+
     for(int i = 0; i < n; i++){
-        auto it = lower_bound(lis, lis + tmp, v[i].second);
+        auto it = lower_bound(lis.begin(), lis.begin() + tmp, v[i].second);
         if(*it == 0) tmp++;
         *it = v[i].second;
     }
