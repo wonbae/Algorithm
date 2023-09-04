@@ -3,8 +3,6 @@
 #include <algorithm>
 using namespace std;
 
-const int MAX_N = 100001;
-
 int main() {
     int T;
     cin >> T;
