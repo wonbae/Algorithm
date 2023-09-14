@@ -19,7 +19,6 @@ int main(){
             dp[i] = min(dp[i], dp[i - j*j] + 1);
         }
     }
-
     
     cout<<dp[n]<<"\n";
 
