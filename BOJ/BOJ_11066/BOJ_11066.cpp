@@ -4,7 +4,7 @@ using namespace std;
 #define INF 987654321
 
 int dp[501][501];
-int sumation[501];
+int prefixSum[501];
 
 int main(){
     fastio;
@@ -22,29 +22,39 @@ int main(){
         }
 
 
-        sumation[0] = v[0];
+        prefixSum[0] = v[0];
         for(int i = 1; i < n; i++){
-            sumation[i] = sumation[i - 1] + v[i];
+            prefixSum[i] = prefixSum[i - 1] + v[i];
         }
 
-        for(int far = 1; far < n; far++){
-            for(int startPos = 0; (startPos + far) < n; startPos++){
+        for(int dist = 1; dist < n; dist++){
+            for(int startPos = 0; (startPos + dist) < n; startPos++){
 
-                int endPos = startPos + far;
-                int diff = sumation[endPos] - sumation[startPos - 1];
+                int endPos = startPos + dist;
+                int psum = prefixSum[endPos] - prefixSum[startPos - 1];
 
                 dp[startPos][endPos] = INF;
 
+                // cout<<"dist: "<<dist<<", startPos: "<<startPos<<", endPos: "<<endPos<<"\n";
+
                 for(int k = startPos; k < endPos; k++){
-                    dp[startPos][endPos] = min(dp[startPos][endPos], dp[startPos][k] + dp[k+1][endPos] + diff);
+                    // cout<<"dp["<<startPos<<"]["<<k<<"] + "<<"dp["<<k+1<<"]["<<endPos<<"] + "<<psum<<"\n";
+                    
+
+                    dp[startPos][endPos] = min(dp[startPos][endPos], dp[startPos][k] + dp[k+1][endPos] + psum);
+                    
+                    // cout<<dp[startPos][k]<<"+"<<dp[k+1][endPos]<<"+"<<psum<<"\n";
+                    // cout<<"dp["<<startPos<<"]["<<endPos<<"] = "<<dp[startPos][endPos]<<"\n\n";
+                    
                 }
+                // cout<<"\n";
 
             }
+            // cout<<"\n\n";
         }
 
         cout<<dp[0][n-1]<<"\n";
     }
-
 
 
     return 0;
