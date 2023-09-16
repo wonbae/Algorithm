@@ -14,12 +14,10 @@ int main(){
     }
 
     dp[1] = v[1];
-    dp[2] = max(v[2], v[1]+v[1]);
 
-    for(int i = 3; i <= n; i++){
-        dp[i] = v[i];
-        for(int j = 1; j <= (i/2+1); j++){
-            dp[i] = max(dp[i], dp[j] + dp[i - j]);
+    for(int i = 2; i <= n; i++){
+        for(int j = 1; j <= i; j++){
+            dp[i] = max(dp[i], dp[i - j] + v[j]);
         }
     }
 
