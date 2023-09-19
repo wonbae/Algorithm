@@ -1,66 +1,64 @@
-#include <bits/stdc++.h>
- 
+#include <iostream>
+#include <vector>
+
 using namespace std;
- 
-struct ar {
-    int val, idx;
-}arr[500000];
- 
-bool cmp(ar a, ar b) {
-    return a.val > b.val;
-}
- 
-int n, tree[500001];
- 
-void update(int idx) {
-    while (idx <= n) {
-        tree[idx]++;
-        // cout<<"update : "<<tree[idx]<<"\n";
-        idx += (idx & -idx);
+
+long long merge(vector<int>& arr, vector<int>& temp, int left, int mid, int right) {
+    long long swaps = 0;
+    int i = left, j = mid + 1, k = left;
+
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        } else {
+            temp[k++] = arr[j++];
+            swaps += (mid - i + 1); // 중요: 역순으로 정렬된 경우 Swap 횟수를 더합니다.
+        }
     }
-}
- 
 
-int sum(int idx) {
-    int ans = 0;
- 
-    while (idx > 0) {
-        ans += tree[idx];
-        // cout<<"idx: "<<idx<<" tree : "<<tree[idx]<<" ans : "<<ans<<"\n";
-        idx -= (idx & -idx);
+    while (i <= mid) {
+        temp[k++] = arr[i++];
     }
- 
-    return ans;
+
+    while (j <= right) {
+        temp[k++] = arr[j++];
+    }
+
+    for (int p = left; p <= right; ++p) {
+        arr[p] = temp[p];
+    }
+
+    return swaps;
 }
 
-
-void printree(){
-    for(int i = 0; i< n+2; i++){
-        cout<<tree[i]<<" ";
-    }cout<<"\n";
+int counts = 0;
+long long mergeSort(vector<int>& arr, vector<int>& temp, int left, int right) {
+    long long swaps = 0;
+    
+    if (left < right) {
+        int mid = (left + right) / 2;
+        swaps += mergeSort(arr, temp, left, mid);
+        swaps += mergeSort(arr, temp, mid + 1, right);
+        swaps += merge(arr, temp, left, mid, right);
+    }
+    // cout<<"left: "<<left<<", right: "<<right<<" swap: "<<swaps<<"\n";
+    return swaps;
 }
- 
 
 int main() {
-    int i;
-    long long ans = 0;
- 
-    scanf("%d", &n);
- 
-    for (i = 0;i < n;++i) {
-        scanf("%d", &arr[i].val);
-        arr[i].idx = i + 1;
+    ios_base::sync_with_stdio(0), cin.tie(NULL), cout.tie(NULL);
+    
+    int N;
+    cin >> N;
+    vector<int> A(N);
+    vector<int> temp(N);
+
+    for (int i = 0; i < N; ++i) {
+        cin >> A[i];
     }
- 
-    sort(arr, arr + n, cmp);
- 
-    for (i = 0;i < n;++i) {
-        ans += sum(arr[i].idx - 1);
-        update(arr[i].idx);
-        printree();
-    }
- 
-    printf("%lld", ans);
- 
+
+    long long swapCount = mergeSort(A, temp, 0, N - 1);
+    cout << swapCount << endl;
+
     return 0;
 }
