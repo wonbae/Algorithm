@@ -21,8 +21,14 @@ int main(){
 
     for(int i = 2; i <= n; i++){
         for(int j = 1; j <= i; j++){
+            // cout<<"min(dp["<<i<<"], dp["<<i<<"-"<<j<<"] + v["<<j<<"] = dp["<<i<<"]\n";
+            // cout<<dp[i]<<", "<<dp[i-j]<< "+" << v[j]<<"\n";
+
             dp[i] = min(dp[i], dp[i - j] + v[j]);
+
+            // cout<<dp[i]<<"\n";
         }
+        // cout<<"\n";
     }
 
     cout<<dp[n]<<"\n";
