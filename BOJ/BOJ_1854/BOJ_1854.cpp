@@ -4,16 +4,20 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(0), cin.tie(NULL), cout.tie(NULL);
 typedef pair<int, int> pii;
 
-priority_queue<int> dist[1003];
-vector<pii> adj[1003];
+// priority_queue<int> dist[1003];
+// vector<pii> adj[1003];
+
 
 int main(){
     fastio;
 
     int n, m, k;
     cin>>n>>m>>k;
+    
+    vector<vector<pii> > adj;
+    adj.resize(n+1, vector<pii>());
 
-    // adj.resize(n+1, vector<pii>(m+1));
+    priority_queue<int> dist[n+1];
 
     for(int i = 0; i < m; i++){
         int a, b, c;
